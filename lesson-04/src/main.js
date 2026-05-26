@@ -13,10 +13,8 @@ if *some condition is true*, then *a certain action will happen*, else *another 
 */
 
 // Declare the variable using either let or const, that depends on your requirement.
-
-// const age = 17;
-
-const age = prompt('Enter your age');
+const age = 17;
+// const age = prompt('Enter your age');
 
 // 1. Simple if
 if (age > 18) {
@@ -128,7 +126,7 @@ Don’t trust your expectations — Do not assume the things, verify them.
 // 7. Snippet with bugs for debugging practice
 
 // Snippet with bugs for debugging practice - uncomment when ready
-/*
+
 const num = 10;
 
 if (num < 5) {
@@ -139,7 +137,8 @@ if (num < 5) {
 
 let k = 0;
 while (k < 3) {
-k + 1;
-console.log(k);
+  k = k + 1;
+  // either you write k++
+  // or you write k = k+1;
+  console.log(k);
 }
-*/
