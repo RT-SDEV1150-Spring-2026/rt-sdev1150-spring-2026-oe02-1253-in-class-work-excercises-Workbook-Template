@@ -28,13 +28,68 @@ featureList.appendChild(newLI);
 
 // 5. Retreive all list items (querySelectorAll) and update their text
 
+const numItems = document.querySelectorAll('.feature');
+
+/*
+function testFunction(li, idx) {
+  console.log('I am now inside the testFunction method');
+  console.log(li, idx);
+}
+console.log(numItems);
+for (let i = 0; i < numItems.length; i++) {
+  const li = numItems[i];
+  const idx = i;
+  console.log(li, idx);
+  // also demo with function
+  testFunction(li, idx);
+}
+
+// forEach method is the alternative way of writing the above forloop call.
+/* Below function definition is equivalent to
+function testFunction(li, idx) {
+
+}
+// to this statement
+(li, idx) => {}
+  */
+// method inside the method is called callback function/ method.
+numItems.forEach((li, idx) => {
+  console.log('I am now inside the testFunction method');
+  console.log(li, idx);
+  li.textContent = `${idx + 1}.${li.textContent}`;
+});
+
 // 6. Removing the first item from the list using DOM relationships to find it
+const last = featureList.removeChild(featureList.lastElementChild);
 
 // 7. Update the second item using nextElementSibling
+featureList.firstElementChild.nextElementSibling.textContent += '(Updated)';
 
 // 8. Move the last item to the front of the list
+featureList.insertBefore(last, featureList.firstElementChild);
+
+// appendChild, insertBefore, prepend that you can use to add a child node to the parent.
+// if element location that you try to insert using insertBefore location is null, then it act as appendChild.
+// prepend you use to add multiple childs.
+const newLI1 = document.createElement('li');
+newLI1.className = 'feature';
+newLI1.textContent = 'SDEV1150';
+
+const newLI2 = document.createElement('li');
+newLI2.className = 'feature';
+newLI2.textContent = 'Front end Fundamentals';
+
+// add this newly created child to the parent called feature-list.
+featureList.prepend(newLI1, newLI2);
 
 // 9. Use a timer to add a new item after 3 seconds have passed
+// I can use setTimeOut function
+setTimeout(() => {
+  const newLI3 = document.createElement('li');
+  newLI3.className = 'feature';
+  newLI3.textContent = 'Appearing after 5 seconds';
+  featureList.appendChild(newLI3);
+}, 3000);
 
 // **** THE FOLLOWING IS EXISTING CODE FROM LESSON 05
 
