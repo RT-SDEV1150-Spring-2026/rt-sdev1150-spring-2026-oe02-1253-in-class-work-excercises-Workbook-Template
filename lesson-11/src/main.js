@@ -68,9 +68,11 @@ form.addEventListener('input', (e) => {
   }
   // 1.2 custom validation for bio (minimum length)
   if (target.name === 'bio') {
-    target.setCustomValidity('Bio must be at least 40 characters long.');
-  } else {
-    target.setCustomValidity(''); // '' is an emptry string that we pass to remove the custom message from the field.
+    if (target.value.trim().length < 40) {
+      target.setCustomValidity('Bio must be at least 40 characters long.');
+    } else {
+      target.setCustomValidity('');
+    }
   }
 
   // 1.3 custom validation for email (basic '@' symbol check)
