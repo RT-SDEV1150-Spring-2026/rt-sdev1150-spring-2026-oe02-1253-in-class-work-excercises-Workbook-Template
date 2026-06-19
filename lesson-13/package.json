@@ -1,0 +1,24 @@
+{
+  "name": "appsdev",
+  "version": "1.0.0",
+  "description": "This project is about learning the package management in JS course",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "node main.js",
+    "format": "prettier --write ."
+  },
+  "keywords": [
+    "Finance",
+    "Taxes",
+    "calculator"
+  ],
+  "author": "Rohit Tiwari",
+  "license": "ISC",
+  "dependencies": {
+    "dayjs": "^1.11.21"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.4"
+  }
+}
