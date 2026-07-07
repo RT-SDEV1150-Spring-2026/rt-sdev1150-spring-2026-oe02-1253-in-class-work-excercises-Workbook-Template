@@ -1,5 +1,5 @@
 // Import the functions necessary to make the API calls
-import { fetchData } from './utils.js';
+import { fetchData, postData, deleteData } from './utils.js';
 // Select the necessary DOM elements
 const loadButton = document.getElementById('loadBooks');
 const addForm = document.getElementById('addBook');
@@ -19,6 +19,15 @@ async function loadHandler() {
   books.forEach((book) => {
     const newLI = document.createElement('li');
     newLI.textContent = `${book.title} by ${book.author}`;
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+
+    // append this newly created element with LI element that you created earlier
+    newLI.appendChild(deleteButton);
+    deleteButton.addEventListener('click', () => {
+      deleteHandler(book.id);
+    });
+    // Now add complete LI tag under the UL tag.
     list.appendChild(newLI);
   });
 }
@@ -56,9 +65,29 @@ async function submitHandler(e) {
   console.log(data); // here you will now see the data in JS object form. i.e. Key and its value. Look for the year now.
 
   // Now, Lets take the form data you see on console and POST it to the database.
+  // you do not know what error you can face even after 200 response is received. Please make sure you put your code into try catch block for smooth execution.
+  try {
+    await postData(endpoint, data);
+
+    // here, you put the load handler function for automatic call, so that when user adds, it displays the updated data.
+    loadHandler();
+  } catch (error) {
+    console.error('Error submitting the form', error);
+  }
 }
 
 // Attach event listeners to the button and form
 loadButton.addEventListener('click', loadHandler); // create a loadhandler function separately rather than making addEventListener unnecessarily complex.
 addForm.addEventListener('submit', submitHandler);
+
 // TODO: Add delete functionality
+async function deleteHandler(id) {
+  try {
+    await deleteData(`${endpoint}/${id}`);
+
+    // is it refreshring the data?
+    loadHandler();
+  } catch (error) {
+    console.error('Error deleting the book', error);
+  }
+}
