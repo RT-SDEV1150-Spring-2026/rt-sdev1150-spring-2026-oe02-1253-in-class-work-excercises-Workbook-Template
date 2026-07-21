@@ -63,6 +63,19 @@ class UserCard extends HTMLElement {
     img.src = this.getAttribute('avatar') || 'https://placehold.co/80x80/0077ff/ffffff';
     shadow.appendChild(content);
   }
+
+  static get observedAttributes() {
+    return ['avatar'];
+  }
+
+  attributeChangedCallback(name, oldValue, newValue) {
+    if (name === 'avatar' && this.shadowRoot) {
+      const img = this.shadowRoot.querySelector('img');
+      if (img) {
+        img.src = newValue;
+      }
+    }
+  }
 }
 customElements.define('user-card', UserCard);
 

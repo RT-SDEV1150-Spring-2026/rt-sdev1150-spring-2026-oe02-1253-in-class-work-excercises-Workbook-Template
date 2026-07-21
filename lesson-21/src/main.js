@@ -6,7 +6,6 @@ const dynamicUserCard = `
     <user-card avatar="https://placehold.co/80x80/7700ff/ffffff">
       <span slot="name">Mipha</span>
       <span slot="description">Zora Champion</span>
-    
     </user-card>`;
 
 document.querySelector('main').insertAdjacentHTML('beforeend', dynamicUserCard);
@@ -24,19 +23,26 @@ anotherUserCard.appendChild(nameSpan);
 anotherUserCard.appendChild(descSpan);
 
 document.querySelector('main').appendChild(anotherUserCard);
-// Why doesn't the custom avatar show up for this element?
 
-// add the custom button here:
+// Add a button to toggle the theme accent color (used to demonstrate CSS variables cascading into Shadow DOM)
 const toggleBtn = document.createElement('button');
 toggleBtn.textContent = 'Toggle theme';
 document.body.prepend(toggleBtn);
 
-// declare a variable for toggling response.
 let dark = false;
-
 toggleBtn.addEventListener('click', () => {
   dark = !dark;
   document.documentElement.style.setProperty('--global-card-bg', dark ? '#1f2937' : '#ffffff');
   document.documentElement.style.setProperty('--global-card-color', dark ? '#e5e7eb' : '#222222');
   document.documentElement.style.setProperty('--global-card-accent', dark ? 'gold' : '#0077ff');
+});
+
+document.querySelector('user-card').follow();
+
+document.querySelector('user-card').unfollow();
+
+document.querySelector('user-card').addEventListener('follow-change', (e) => {
+  const card = e.target;
+  const name = card.querySelector('[slot=name]').textContent;
+  console.log(`User ${name} is ${card.status ? 'followed' : 'not followed'}`);
 });
