@@ -1,0 +1,39 @@
+// Import the user-card component to register the custom element
+import './user-card.js';
+
+const users = [
+  { id: 'u1', name: 'Zelda', avatar: 'assets/zelda-avatar.png', description: 'Princess of Hyrule' },
+];
+
+// Render user card at the main location of index.html
+const main = document.querySelector('main');
+// Render user cards. Lets parse this array of objects.
+users.forEach((user) => {
+  const card = document.createElement('user-card');
+  console.log('Before setter');
+  card.user = user;
+  console.log('After setter');
+
+  // append the card to the page.
+  main.appendChild(card);
+});
+
+// declare the variable
+let followedCount = 0;
+const countetEl = document.querySelector('#follow-counter');
+// trigger the event on main element.
+main.addEventListener('follow-change', (e) => {
+  followedCount += e.detail.followed ? 1 : -1;
+  countetEl.textContent = `Followed: ${followedCount}`;
+});
+
+// Theme toggle button logic
+let dark = false;
+const toggleBtn = document.querySelector('#btn-theme');
+toggleBtn.addEventListener('click', () => {
+  dark = !dark;
+  document.documentElement.style.setProperty('--global-card-bg', dark ? '#1f2937' : '#ffffff');
+  document.documentElement.style.setProperty('--global-card-color', dark ? '#e5e7eb' : '#222222');
+  document.documentElement.style.setProperty('--global-card-accent', dark ? 'gold' : '#0077ff');
+  toggleBtn.textContent = dark ? '☀️' : '🌙';
+});
